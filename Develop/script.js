@@ -43,7 +43,7 @@ var timeBlock = $('col-1 hour')
 //div that holds the task
 var task = $('.description')
 
-//add timeblocks
+//for loop to add each timeblock beginning with 12AM
 for (var i= 0; i<Hours.length;i++){
     //adds rows to div
     var row =$('<div>')
@@ -71,5 +71,31 @@ for (var i= 0; i<Hours.length;i++){
     .attr({
         id: 'Hour-'(i+9)
     });
+
+    var save = $('<button>')
+    .addClass ('col-1 save')
+    .attr({
+        id: 'save-button-' + (i+24),
+        type: 'button',    })
+
+        .on('click',function () {
+
+            var timeBlockHour = $(this).siblings().first().text();
+            var newTask = $(this).siblings().first().text();
+
+            save(timeBlockHour,newTask)
+        })
+
+    //call function to checktime
+    checkTime(taskSpace);
+
+    //creates rows in div container
+    $(timeBlockDiv).append(row);
+    //adds time blocks columns to rows
+    $(row).append(timeBlock);
+    //adds area for task entry
+    $(row).append(taskArea);
+    //adds users input to taskArea
+    $(taskArea).append(taskInput);
 
 }
