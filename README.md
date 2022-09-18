@@ -28,4 +28,4 @@ ashleysaelens02@yahoo.com
 
 github repo: https://github.com/asaelens02/AKS-Work-Day-Scheduler-Challenge
 
-deployed link: 
+deployed link: https://asaelens02.github.io/AKS-Work-Day-Scheduler-Challenge/
