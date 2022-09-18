@@ -1,10 +1,13 @@
 //variables
+
+
+//use JQuery to grab current day id and container div from HTML
+var dayElement = $('#currentDay');
+
 //jumbotron
 var day = moment().format('dddd,MMMM Do');
 dayElement.text(day);
 
-//use JQuery to grab current day id and container div from HTML
-var dayElement = $('#currentDay');
 var timeBlockDiv = $('.container');
 var currentTime = moment().hour();
 
@@ -43,6 +46,33 @@ var timeBlock = $('col-1 hour')
 //div that holds the task
 var task = $('.description')
 
+// create function to save tasks
+function save(timeBlockHour,newTask){
+    localStorage.setItem(timeBlockHour, newTask);
+}
+
+function checkTime(taskSpace) {
+    //retrieve the hour from the div and convert it to the x'th hour of the day
+    var currentHour = moment($(timeBlock).text().trim(), 'hA').hour();
+
+    //remove class of 'past present future
+    $(taskSpace).removeClass('past present future');
+
+    //conditional to add correct color background to time block depending on time
+    if (currentHour > currentTime) {
+        $(taskSpace).addClass('future');
+    }
+    else if (currentHour === currentTime) {
+        $(taskSpace).addClass('present');
+    }
+    else {
+        $(taskSpace).addClass('past');
+    }
+}
+  //call function to checktime
+  checkTime(taskSpace);
+
+
 //for loop to add each timeblock beginning with 12AM
 for (var i= 0; i<Hours.length;i++){
     //adds rows to div
@@ -52,7 +82,7 @@ for (var i= 0; i<Hours.length;i++){
         id: 'row-' + (i+24)
     })
 
-    var timeBlock = $('<div>')
+    var taskSpace = $('<div>')
     .addClass('col-1 hour')
     .text(Hours[i])
     .attr ({
@@ -69,11 +99,11 @@ for (var i= 0; i<Hours.length;i++){
     .addClass  ('description')
     .text (' ')
     .attr({
-        id: 'Hour-'(i+24)
+        id: 'Hour-'+ (i+24)
     });
 
     var save = $('<button>')
-    .addClass ('col-1 save')
+    .addClass ('col-1 saveBtn')
     .attr({
         id: 'save-button-' + (i+24),
         type: 'button',    })
@@ -83,11 +113,12 @@ for (var i= 0; i<Hours.length;i++){
             var timeBlockHour = $(this).siblings().first().text();
             var newTask = $(this).siblings().first().text();
 
+            //calls save function 
             save(timeBlockHour,newTask)
         })
 
     //call function to checktime
-    checkTime(taskSpace);
+    //checkTime(taskSpace);
 
     var icon = $('<i>')
     .addClass('fas fa-save');
@@ -148,9 +179,9 @@ function createTask() {
     }
 }
 // create function to save task
-function save(timeBlockHour,newTask){
-    localStorage.setItem(timeBlockHour, newTask);
-}
+// function save(timeBlockHour,newTask){
+//     localStorage.setItem(timeBlockHour, newTask);
+// }
 
 // calls create task function
 createTask();
