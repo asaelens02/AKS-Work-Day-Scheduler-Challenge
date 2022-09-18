@@ -1,4 +1,4 @@
-# AKS-Work-Day-Scheduler-Challenge# Challenge-4-Quiz-AKS
+# AKS-Work-Day-Scheduler-Challenge
 ## About the project
 
 This application is supposed to be a workday scheduling app so that the user can enter their daily tasks, they should be able to save each task so that it persists on reload and hours that are defined as past/present/future should be identified by color. 
