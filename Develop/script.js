@@ -69,7 +69,7 @@ for (var i= 0; i<Hours.length;i++){
     .addClass  ('description')
     .text (' ')
     .attr({
-        id: 'Hour-'(i+9)
+        id: 'Hour-'(i+24)
     });
 
     var save = $('<button>')
@@ -89,6 +89,9 @@ for (var i= 0; i<Hours.length;i++){
     //call function to checktime
     checkTime(taskSpace);
 
+    var icon = $('<i>')
+    .addClass('fas fa-save');
+
     //creates rows in div container
     $(timeBlockDiv).append(row);
     //adds time blocks columns to rows
@@ -99,3 +102,55 @@ for (var i= 0; i<Hours.length;i++){
     $(taskArea).append(taskInput);
 
 }
+
+$('.col-10').on('click', 'p', function () {
+
+    var text = $(this)
+        .text()
+        .trim()
+
+    var textInput = $('<textarea>')
+        .addClass('form-control')
+        .val(text);
+
+    $(this).replaceWith(textInput);
+
+    textInput.trigger('focus');
+});
+
+//  - hardcode the <p> content on blur
+$('.col-10').on('blur', 'textarea', function () {
+    // get the textarea's current value/text
+    var text = $(this)
+        .val()
+        .trim();
+
+    // recreate p element
+    var userText = $("<p>")
+        .addClass("description")
+        .text(text);
+
+    // replace textarea with p element
+    $(this).replaceWith(userText);
+});
+
+// function to create tasks
+function createTask() {
+
+    //create for loop to get task for each hour
+
+    for (var i = 0; i <Hours.length; i++) {
+        let task = localStorage.getItem(Hours[i])
+
+        if (task) {
+            $('#' + (i + 24)).siblings().first().children().text(task);
+        }
+    }
+}
+// create function to save task
+function save(timeBlockHour,newTask){
+    localStorage.setItem(timeBlockHour, newTask);
+}
+
+// calls create task function
+createTask();
